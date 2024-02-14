@@ -1,67 +1,80 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
-
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const Layout = () => {
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
+        tabBarActiveTintColor: Colors.primary,
+        tabBarShowLabel:true,
+        // tabBarStyle:{
+        //   position:'absolute',
+        //   bottom :8 , 
+        //   marginLeft : 10,
+        //   marginRight:10,
+        //   elevation:0,
+        //   backgroundColor:'#000',
+        //   borderRadius:15,
+        //   height:60,  
+        // },
+        // tabBarLabelStyle: {
+        //   fontFamily: 'mon-sb',
+        // },
       }}>
-
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="tools"
+        
         options={{
-          title: 'Tools',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarLabel: 'Tools',
+          headerShown: true,
+          tabBarIcon: ({ size, color }) => (
+           <MaterialCommunityIcons name="hammer" size={size+2} color={color} />
+         ),
         }}
       />
       <Tabs.Screen
         name="organize"
         options={{
-          title: 'Organize',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarLabel: 'Organize',
+          headerShown: true,
+         tabBarIcon: ({ size, color }) => <MaterialCommunityIcons name="briefcase" size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="wiki"
         options={{
-          title: 'Wiki',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarLabel: 'Wiki',
+
+          headerShown: true,
+          tabBarIcon : ({ size, color }) => (
+           <Ionicons name="bulb" size={size+2} color={color} />
+         ),
         }}
       />
       <Tabs.Screen
         name="market"
         options={{
-          title: 'Market',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarLabel: 'Market',
+
+          headerShown: true,
+          tabBarIcon: ({ size, color }) => (
+           <Ionicons name="pricetags" size={size+2} color={color} />
+         ),
         }}
       />
     </Tabs>
   );
-}
+};
+
+export default Layout;

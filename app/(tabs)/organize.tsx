@@ -1,12 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const organize = () => {
+export default function organize() {
   return (
     <View>
       <Text>organize</Text>
     </View>
   )
 }
-
-export default organize

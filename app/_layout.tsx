@@ -32,10 +32,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    mon: require('../assets/fonts/Montserrat-Regular.ttf'),
-    'mon-sb': require('../assets/fonts/Montserrat-SemiBold.ttf'),
-    'mon-b': require('../assets/fonts/Montserrat-Bold.ttf'),
-    'cb':require('../assets/fonts/Clearface-Bold.ttf'),
+    'mon': require('../assets/fonts/OpenSans-Regular.ttf'),
+    'mon-sb': require('../assets/fonts/OpenSans-SemiBold.ttf'),
+    'mon-b': require('../assets/fonts/OpenSans-Bold.ttf'),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -69,6 +68,7 @@ function RootLayoutNav() {
     if (isLoaded && !isSignedIn) {
       router.push('/(modals)/login');
     }
+    
   }, [isLoaded]);
 
   return (
@@ -88,6 +88,9 @@ function RootLayoutNav() {
           ),
         }}
       />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="listing/[id]" options={{ headerTitle: '' }} />
+     
     </Stack>
   );
 }
