@@ -3,7 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Colors from '@/constants/Colors'
 
-const ToolHeader = () => {
+const Header = () => {
   return (
     <SafeAreaView style={{flex:1, backgroundColor:"#fff"}}>
         <View style={styles.container}>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
       }
 })
 
-export default ToolHeader
+export default Header

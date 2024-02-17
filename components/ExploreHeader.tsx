@@ -65,24 +65,24 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
       <View style={styles.container}>
         <View style={styles.actionRow}>
         {(user)?
-        <Link href={`/user/page`} asChild>
-          <TouchableOpacity style={styles.filterBtn}>
-          <Image  source={{ uri: user?.imageUrl }} style={styles.avatar}  />
-         </TouchableOpacity>
+          <Link href={`/user/page`} asChild>
+            <TouchableOpacity style={styles.filterBtn}>
+              <Image  source={{ uri: user?.imageUrl }} style={styles.avatar}  />
+            </TouchableOpacity>
           </Link>
           :
           <Link href={`/user/page`} asChild>
-          <TouchableOpacity style={styles.filterBtn}>
-          <Ionicons name="person-circle-outline" size={30} color={'#A2A0A2'} />
-         </TouchableOpacity>
+            <TouchableOpacity style={styles.filterBtn}>
+              <Ionicons name="person-circle-outline" size={30} color={'#A2A0A2'} />
+            </TouchableOpacity>
           </Link>
           }
           <Text style={styles.logo}>Seahorse</Text>
           {(user)&& 
           <Link href={`/add/page`} asChild>
-          <TouchableOpacity style={styles.filterBtn1}>
-          <Ionicons size={30} name="add-outline"/> 
-         </TouchableOpacity>
+            <TouchableOpacity style={styles.filterBtn1}>
+              <Ionicons size={30} name="add-outline"/> 
+            </TouchableOpacity>
           </Link>
           }
         </View>
