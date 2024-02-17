@@ -11,19 +11,12 @@ const Layout = () => {
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
         tabBarShowLabel:true,
-        // tabBarStyle:{
-        //   position:'absolute',
-        //   bottom :8 , 
-        //   marginLeft : 10,
-        //   marginRight:10,
-        //   elevation:0,
-        //   backgroundColor:'#000',
-        //   borderRadius:15,
-        //   height:60,  
-        // },
-        // tabBarLabelStyle: {
-        //   fontFamily: 'mon-sb',
-        // },
+        tabBarStyle:{
+          backgroundColor:'#fff',
+        },
+        tabBarLabelStyle: {
+          fontFamily: 'mon-sb',
+        },
       }}>
       <Tabs.Screen
         name="index"
