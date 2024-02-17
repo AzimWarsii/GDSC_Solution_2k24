@@ -29,7 +29,7 @@ const BACKDROP_HEIGHT = height * 0.65;
 
 const drives = [{ key: 'empty-left' },{
   "key": "1072790",
-  "title": "Demo Drive",
+  "title": "Ongoing Drive",
   "poster": "https://media.istockphoto.com/id/154890047/photo/ocean-dumping-total-pollution-on-a-tropical-beach.jpg?s=2048x2048&w=is&k=20&c=dOZMtmcvq2HG7Be9CE9ZZG4qIXo5yVKQZjUPmaUMGao=",
   "backdrop": "https://media.istockphoto.com/id/154890047/photo/ocean-dumping-total-pollution-on-a-tropical-beach.jpg?s=2048x2048&w=is&k=20&c=dOZMtmcvq2HG7Be9CE9ZZG4qIXo5yVKQZjUPmaUMGao=",
   "rating": 6.9,
@@ -37,7 +37,7 @@ const drives = [{ key: 'empty-left' },{
   "dates": ["Tuesday's","Friday's"],
 },{
   "key": "933131",
-  "title": "Demo Drive",
+  "title": "Ongoing Drive",
   "poster": "https://media.istockphoto.com/id/1176398761/photo/fishes-in-water-polluted-with-plastic-waste.jpg?s=2048x2048&w=is&k=20&c=SySfn9w8N1CwOD-jphawGxnSZ1OA0Sa30JSZOF4dquo=",
   "backdrop": "https://media.istockphoto.com/id/1176398761/photo/fishes-in-water-polluted-with-plastic-waste.jpg?s=2048x2048&w=is&k=20&c=SySfn9w8N1CwOD-jphawGxnSZ1OA0Sa30JSZOF4dquo=",
   "rating": 6.708,
@@ -45,7 +45,7 @@ const drives = [{ key: 'empty-left' },{
   "dates": ["2024-6-13 to 2024-6-21",]
 },{
   "key": "1212073",
-  "title": "Demo Drive",
+  "title": "Ongoing Drive",
   "poster": "https://media.istockphoto.com/id/1183347762/photo/environmental-conservation-collecting-garbage-and-trash-from-water.jpg?s=1024x1024&w=is&k=20&c=-eyGoxTNgRooQ3e0NwnqOCY-_7ArSn3aRpYpqsGipiE=",
   "backdrop": "https://media.istockphoto.com/id/1183347762/photo/environmental-conservation-collecting-garbage-and-trash-from-water.jpg?s=1024x1024&w=is&k=20&c=-eyGoxTNgRooQ3e0NwnqOCY-_7ArSn3aRpYpqsGipiE=",
   "rating": 6.875,
@@ -54,7 +54,7 @@ const drives = [{ key: 'empty-left' },{
 },
 {
   "key": "1214314",
-  "title": "Demo Drive",
+  "title": "Ongoing Drive",
   "poster": "https://media.istockphoto.com/id/1133794050/photo/swan-swims-in-contaminated-water-with-plastic-bottles.jpg?s=2048x2048&w=is&k=20&c=suRAIQLGbMWAiTOhCCDk6R9y1RdD-Ja0MOz1lgEOjZM=",
   "backdrop": "https://media.istockphoto.com/id/1133794050/photo/swan-swims-in-contaminated-water-with-plastic-bottles.jpg?s=2048x2048&w=is&k=20&c=suRAIQLGbMWAiTOhCCDk6R9y1RdD-Ja0MOz1lgEOjZM=",
   "rating": 6.669,
