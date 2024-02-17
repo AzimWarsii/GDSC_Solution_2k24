@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
+import Header from '@/components/Header'
 
 const Layout = () => {
 
@@ -39,8 +40,9 @@ const Layout = () => {
       <Tabs.Screen
         name="organize"
         options={{
-          tabBarLabel: 'Organize',
+          tabBarLabel: 'Drives',
           headerShown: true,
+          header: () => <Header/>,      
          tabBarIcon: ({ size, color }) => <MaterialCommunityIcons name="briefcase" size={size} color={color} />,
         }}
       />
