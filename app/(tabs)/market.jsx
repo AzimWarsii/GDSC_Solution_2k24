@@ -67,8 +67,8 @@ const SECTIONS = [
     data: [
       {
         key: '1',
-        name: 'Name',
-        location:'Location',
+        name: 'Lets try writing a long Name',
+        location:'Lets try writing a long Location Lets try writing a long Location',
         status:'Verified',
         uri: 'https://fishfarmtank.com/wp-content/uploads/2019/05/6-home-fish-farming-tank.jpg',
       },

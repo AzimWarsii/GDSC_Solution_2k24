@@ -32,8 +32,8 @@ const MarketListItem = ({ item }) => {
         </View>
         <View style={styles.textContainer}>
           <View style={styles.infoContainer}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemLocation}>{item.location}</Text>
+            <Text numberOfLines={2} style={styles.itemName}>{item.name}</Text>
+            <Text numberOfLines={2} style={styles.itemLocation}>{item.location}</Text>
           </View>
           <View style={{flexDirection:'row'}} >
             {item.status=='Verified' &&
@@ -76,14 +76,20 @@ const styles = StyleSheet.create({
     itemName: {
       fontFamily:'mon-sb',
       color: '#000',
-      fontSize:16,  
-      margin: 5,
+      fontSize:15,  
+      marginTop: 5,
+      marginBottom:3,
+      marginLeft:7.5,
+      marginRight:7.5
     },
     itemLocation: {
+      
+      //ellipsizeMode:"tail",
       fontFamily:'mon-sb',
       color: '#0007',
-      fontSize:13,  
-      marginLeft: 5,
+      fontSize:12,  
+      marginLeft: 7.5,
+      marginRight:7.5
     },
     itemStatus: {
       //height:14,
@@ -92,13 +98,8 @@ const styles = StyleSheet.create({
       fontFamily:'mon-sb',
       color: '#1e90ff',
       fontSize:13,  
-      marginLeft: 5,
-    },
-    itemStatusFalse: {
-      fontFamily:'mon-sb',
-      color: '#FF474C',
-      fontSize:13,  
-      marginLeft: 5,
+      marginLeft: 7.5,
+      
     },
     imageContainer: {
       backgroundColor:'#0005',
