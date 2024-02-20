@@ -37,6 +37,8 @@ export default function RootLayout() {
     'mon-b': require('../assets/fonts/OpenSans-Bold.ttf'),
   });
 
+  
+
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
@@ -77,7 +79,7 @@ function RootLayoutNav() {
         name="(modals)/login"
         options={{
           presentation: 'modal',
-          title: 'Log in or sign up',
+          title: 'Log in or Sign up',
           headerTitleStyle: {
             fontFamily: 'mon-sb',
           },
