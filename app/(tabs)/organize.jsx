@@ -30,8 +30,8 @@ const BACKDROP_HEIGHT = height * 0.65;
 const drives = [{ key: 'empty-left' },{
   "key": "1072790",
   "title": "Ongoing Drive",
-  "poster": "https://media.istockphoto.com/id/154890047/photo/ocean-dumping-total-pollution-on-a-tropical-beach.jpg?s=2048x2048&w=is&k=20&c=dOZMtmcvq2HG7Be9CE9ZZG4qIXo5yVKQZjUPmaUMGao=",
-  "backdrop": "https://media.istockphoto.com/id/154890047/photo/ocean-dumping-total-pollution-on-a-tropical-beach.jpg?s=2048x2048&w=is&k=20&c=dOZMtmcvq2HG7Be9CE9ZZG4qIXo5yVKQZjUPmaUMGao=",
+  "poster": "https://media.istockphoto.com/id/1133794050/photo/swan-swims-in-contaminated-water-with-plastic-bottles.jpg?s=2048x2048&w=is&k=20&c=suRAIQLGbMWAiTOhCCDk6R9y1RdD-Ja0MOz1lgEOjZM=",
+  "backdrop": "https://media.istockphoto.com/id/1133794050/photo/swan-swims-in-contaminated-water-with-plastic-bottles.jpg?s=2048x2048&w=is&k=20&c=suRAIQLGbMWAiTOhCCDk6R9y1RdD-Ja0MOz1lgEOjZM=",
   "rating": 6.9,
   "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   "dates": ["Tuesday's","Friday's"],
@@ -55,8 +55,8 @@ const drives = [{ key: 'empty-left' },{
 {
   "key": "1214314",
   "title": "Ongoing Drive",
-  "poster": "https://media.istockphoto.com/id/1133794050/photo/swan-swims-in-contaminated-water-with-plastic-bottles.jpg?s=2048x2048&w=is&k=20&c=suRAIQLGbMWAiTOhCCDk6R9y1RdD-Ja0MOz1lgEOjZM=",
-  "backdrop": "https://media.istockphoto.com/id/1133794050/photo/swan-swims-in-contaminated-water-with-plastic-bottles.jpg?s=2048x2048&w=is&k=20&c=suRAIQLGbMWAiTOhCCDk6R9y1RdD-Ja0MOz1lgEOjZM=",
+  "poster": "https://media.istockphoto.com/id/154890047/photo/ocean-dumping-total-pollution-on-a-tropical-beach.jpg?s=2048x2048&w=is&k=20&c=dOZMtmcvq2HG7Be9CE9ZZG4qIXo5yVKQZjUPmaUMGao=",
+  "backdrop": "https://media.istockphoto.com/id/154890047/photo/ocean-dumping-total-pollution-on-a-tropical-beach.jpg?s=2048x2048&w=is&k=20&c=dOZMtmcvq2HG7Be9CE9ZZG4qIXo5yVKQZjUPmaUMGao=",
   "rating": 6.669,
   "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   "dates": ["2025-3-21",]

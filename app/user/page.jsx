@@ -9,24 +9,37 @@ import {
   import Colors from '@/constants/Colors';
   import { Link } from 'expo-router';
   import * as ImagePicker from 'expo-image-picker';
-  import { View, TouchableOpacity, Button, Text, StyleSheet, Image ,ToastAndroid, onCaptureImage } from 'react-native';
+  import { ActivityIndicator,View, TouchableOpacity, Button, Text, StyleSheet, Image ,ToastAndroid, onCaptureImage } from 'react-native';
   //import { Card, Avatar, MD3Colors } from 'react-native-paper';
   import { app, auth , firestore } from '../../firebase/firebase';
   import { useNavigation } from '@react-navigation/core'
   import { getFirestore, doc, getDoc,setDoc, updateDoc } from "firebase/firestore";
   import { useRouter } from 'expo-router';
   import { onSnapshot , collection,query,getDocs, where } from "firebase/firestore";
+  import AsyncStorage from '@react-native-async-storage/async-storage';
   
 
   
   const Page = () => {
     const router = useRouter();
-    const [profileLoaded, setProfileLoaded] = React.useState(false)
+    const [profileLoaded, setProfileLoaded] = useState(true)
     const [data, setData] = React.useState();
-    const [newUserName, setNewUserName] = useState("")
+    const [newUserName, setNewUserName] = useState(null)
     const [ selectedFile, setSelectedFile] = useState(null);
+    const [loader, setLoader] = useState(true)
+
+    useEffect(() => {
+      setTimeout(function () {
+        setLoader(false)
+      }, 2000);
+    }, [])
+    
+  
+    
   
    async function handleEdit() {
+    setLoader(true)
+    setProfileLoaded(false)
     if (newUserName == '') {
         console.log('not entered any input');
         setEdit(false)
@@ -37,24 +50,36 @@ import {
         username: newUserName||auth.username,
     }).then(() => {  
       setEdit(false)
+      setProfileLoaded(true)
     });
-}
-async function handleEditProfile(selectedFile) {
+  }
 
-  await updateDoc(doc(firestore, "users", auth.currentUser?.uid), {
-      profilePicURL: selectedFile,
-  }).then(() => {  
-    setEdit(false)
-  });
-}
+// async function handleEditProfile(selectedFile) {
 
-    const handleSignOut = () => {
+//   await updateDoc(doc(firestore, "users", auth.currentUser?.uid), {
+//       profilePicURL: selectedFile,
+//   }).then(() => {  
+//     setEdit(false)
+//   });
+// }
+
+    const handleSignOut = async() => {
+
+      try {
+        const savedUser = await AsyncStorage.clear();
+        setData(null)
+        } catch (error) {
+        console.log(error);
+      }
+
         auth
             .signOut()
             .then(() => {
+                
                 router.replace("/(modals)/login")
             })
             .catch(error => alert(error.message))
+      
     }
 
     React.useEffect(() => {
@@ -65,9 +90,10 @@ async function handleEditProfile(selectedFile) {
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     setData(docSnap.data());
-                    setProfileLoaded(true);
+                    AsyncStorage.setItem('user', JSON.stringify(docSnap.data()));
+    
                 } else {
-                    setProfileLoaded(false);
+                    
                 }
             } catch (e) {
                 console.log(e)
@@ -78,7 +104,6 @@ async function handleEditProfile(selectedFile) {
 
 
 
- 
     const [userName, setUserName] = useState(data?.username);
     const [email, setEmail] = useState(data?.email);
     const [dp, setDp] = useState(data?.profilePicURL)
@@ -129,12 +154,18 @@ async function handleEditProfile(selectedFile) {
           <Text style={styles.header}>Profile</Text>
           <Ionicons name="notifications-outline" size={26} />
         </View>
-  
-        {data && (
+        
+        {data && profileLoaded ? (
           <View style={styles.card}>
+            {dp!=""?
             <TouchableOpacity onPress={onCaptureImage}>
               <Image source={{ uri: dp }} style={styles.avatar} />
             </TouchableOpacity>
+            :
+            <TouchableOpacity onPress={onCaptureImage}>
+              <Image source={{ uri: 'https://media.istockphoto.com/id/1199743622/vector/two-swimming-sharks.jpg?s=2048x2048&w=is&k=20&c=cL01i2wWXSG9i1_A9w4ULISHzuAO0Yg2bGQN-DVqEYk=' }} style={styles.avatar} />
+            </TouchableOpacity>
+            }
             <View style={{ flexDirection: 'row', gap: 6 }}>
               {!edit && (
                 <View style={styles.editRow}>
@@ -163,12 +194,12 @@ async function handleEditProfile(selectedFile) {
             <Text>{email}</Text>
            
           </View>
-        )}
+        ): loader && (<View style={styles.card}><ActivityIndicator size="large" color="#D4E6F1" style={{margin:70}} /></View>)}
   
-        {auth && <Button title="Log Out" onPress={() => handleSignOut()} color={Colors.dark} />}
-        {!auth && (
+        {data && <Button title="Log Out" onPress={() => handleSignOut()} color={Colors.dark} />}
+        {!data && (
           <Link href={'/(modals)/login'} asChild>
-            <Button title="Log In" color={Colors.dark} />
+            <Button title="Log In" color={Colors.dark}  />
           </Link>
         )}
       </SafeAreaView>

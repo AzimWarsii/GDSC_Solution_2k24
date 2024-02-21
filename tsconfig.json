@@ -7,5 +7,5 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "app/(tabs)/organize.jsx", "app/(tabs)/market.jsx", "app/(modals)/login.jsx", "app/user/page.jsx", "app/_layout.tsx", "app/add/page.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "app/(tabs)/organize.jsx", "app/(tabs)/market.jsx", "app/(modals)/login.jsx", "app/user/page.jsx", "app/_layout.tsx", "app/add/page.jsx", "app/(modals)/drive.jsx"]
 }

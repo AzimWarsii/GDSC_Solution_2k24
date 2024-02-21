@@ -5,10 +5,11 @@ import { useOAuth } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react'
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator,KeyboardAvoidingView, StyleSheet, Text, TextInput,Dimensions, TouchableOpacity, View } from 'react-native'
 import { app, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../../firebase/firebase'
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const windowHeight = Dimensions.get('window').height;
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -16,6 +17,9 @@ const LoginScreen = () => {
   const [username, setuserName] = useState('')
   const [bio, setBio] = useState('')
   const [role, setRole] = useState('')
+  const [data, setData] = useState(null);
+  const [profile, setProfile]= useState(false);
+  const [profileLoaded, setProfileLoaded] = useState(true)
   const router = useRouter();
   useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
@@ -28,7 +32,7 @@ const LoginScreen = () => {
 
   async function createUser() {
       const db = getFirestore(app);
-      await setDoc(doc(db, "users", auth.currentUser?.uid), {
+      const userData = {
         uid: auth.currentUser?.uid,
         username: email.split("@")[0],
         email: email,
@@ -38,12 +42,36 @@ const LoginScreen = () => {
         downvoters: [],
         drives: [],
         createdAt: Date.now(),
-      }).then(() => {
+      }
+      await setDoc(doc(db, "users", auth.currentUser?.uid), userData)
+      .then(async () => {
+          await AsyncStorage.setItem('user',JSON.stringify(userData));
           console.log("order stored");
       });
   }
 
+  async function getUser() {
+    try {
+        const db = getFirestore(app);
+        const docRef = doc(db, "users", auth.currentUser?.uid);
+        const docSnap = await getDoc(docRef);
+        setData(docSnap.data()) 
+        AsyncStorage.setItem('user', JSON.stringify(docSnap.data()));
+    } catch (e) {
+        console.log(e)
+    }
+  }
+  
+  // useEffect(() => {
+  //   if (!data) {
+  //     return;
+  //   }
+  //   AsyncStorage.setItem('user', JSON.stringify(data));
+  //   setProfile(true)
+  // }, [data]);
+
   const handleSignUp = () => {
+      setProfileLoaded(false)
       createUserWithEmailAndPassword(auth, email, password)
           .then(userCredentials => {
               const user = userCredentials.user;
@@ -51,21 +79,35 @@ const LoginScreen = () => {
           }).then(a => {
               createUser();
               console.log('Saved to firestore');
-          }).catch(error => alert(error.message))
+          }).catch(error =>{ 
+            alert(error.message)
+            setProfileLoaded(true)
+          })
   }
 
   const handleLogin = () => {
+      setProfileLoaded(false)
       signInWithEmailAndPassword(auth, email, password)
           .then(userCredentials => {
               const user = userCredentials.user;
+              getUser();
               console.log('Logged in with:', user.email);
+              setProfileLoaded(true)
+              
           })
-          .catch(error => alert(error.message))
+          .catch(error =>{ 
+            alert(error.message)
+            setProfileLoaded(true)
+          })
+          router.replace('../')
   }
 
 
   return (
-    <View style={styles.container}>
+   <>
+   
+       {profileLoaded?
+        <View style={styles.container}>
       <TextInput
         autoCapitalize="none"
         placeholder="Email"
@@ -128,7 +170,8 @@ const LoginScreen = () => {
           <Text style={styles.btnOutlineText}>Continue with Facebook</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View>: <View style={styles.container}><ActivityIndicator style={{marginVertical:windowHeight/3}}/></View>}
+    </>
   );
 };
 

@@ -6,7 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { Link } from 'expo-router';
-import { app, auth , firestore } from '../firebase/firebase';
+import { app, auth,firestore } from '../firebase/firebase';
+
 
 const categories = [
   {
