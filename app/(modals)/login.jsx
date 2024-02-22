@@ -46,7 +46,7 @@ const LoginScreen = () => {
       await setDoc(doc(db, "users", auth.currentUser?.uid), userData)
       .then(async () => {
           await AsyncStorage.setItem('user',JSON.stringify(userData));
-          console.log("order stored");
+          console.log("User Created");
       });
   }
 

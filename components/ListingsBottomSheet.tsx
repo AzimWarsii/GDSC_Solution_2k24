@@ -8,17 +8,19 @@ import Colors from '@/constants/Colors';
 interface Props {
   listings: any[];
   category: string;
+  refreshing: boolean;
+  onRefresh: any
 }
 
 
-const ListingsBottomSheet = ({listings, category }: Props) => {
+const ListingsBottomSheet = ({listings, category, refreshing, onRefresh  }: Props) => {
   const [refresh, setRefresh] = useState<number>(0);
 
 
   return (
 
       <View style={styles.contentContainer}>
-        <Listings listings={listings} refresh={refresh} category={category} />
+        <Listings listings={listings} refresh={refresh} category={category} refreshing={refreshing} onRefresh={onRefresh} />
       </View>
   );
 };

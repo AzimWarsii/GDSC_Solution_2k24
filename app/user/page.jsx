@@ -41,7 +41,7 @@ import {
     setLoader(true)
     setProfileLoaded(false)
     if (newUserName == '') {
-        console.log('not entered any input');
+        console.log('Not entered any input');
         setEdit(false)
         return;
     }

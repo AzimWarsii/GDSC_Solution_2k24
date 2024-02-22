@@ -26,6 +26,10 @@ const CreatePost = () => {
     const db = getFirestore(app);
     const navigation = useNavigation();
 
+    function wordsLen(str) { 
+      const array = str.trim().split(/\s+/); 
+      return array.length; 
+    } 
 
     const onCaptureImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -55,7 +59,7 @@ const CreatePost = () => {
         try {
           const savedUser = await AsyncStorage.getItem("user");
           setCurrentUser(JSON.parse(savedUser));
-          console.log(currentUser);
+          //console.log(currentUser);
         } catch (error) {
           console.log(error);
         }
@@ -65,14 +69,26 @@ const CreatePost = () => {
 
 
     const SubmitOrder = async (currentUser) => {
-        setSubmit(false)
+        
         if (caption === '' ) {
-            alert('Enter Caption');
-            // setVisible(true); // Assuming setVisible is defined elsewhere in the actual code
+            alert('Enter title');
             return;
         }
+        if ( wordsLen(description)<18) {
+          alert('Description too short');
+          return;
+        }
+        if (date === '' ) {
+          alert('Enter date');
+          return;
+      }
+      setSubmit(false)
+       try{
         const uid = uuid.v4()
         await setDoc( doc ( db, "drives", uid), {
+            id:uid,
+            key:Math.floor(100000 + Math.random() * 900000),
+            backdrop:imageURL,
             caption: caption,
             category: "Drive",
             createdAt: Date.now(),
@@ -87,7 +103,7 @@ const CreatePost = () => {
             userAge:currentUser.createdAt,
             description:description,
             userImage:currentUser.profilePicURL,
-            date:date
+            date:arrayUnion(date)
         }).then(() => {
             updateDoc(doc(db, "users", auth.currentUser?.uid), {  drives: arrayUnion(uid) })
             setCaption('')
@@ -99,6 +115,10 @@ const CreatePost = () => {
             alert("Posted")
             //navigation.replace("orderScreen");
         });
+      }
+      catch(e){
+        alert(e.message)
+      }
     }
 
     return (

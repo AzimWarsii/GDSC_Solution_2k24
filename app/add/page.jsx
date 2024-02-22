@@ -54,7 +54,7 @@ const CreatePost = () => {
         try {
           const savedUser = await AsyncStorage.getItem("user");
           setCurrentUser(JSON.parse(savedUser));
-          console.log(currentUser);
+          //console.log(currentUser);
         } catch (error) {
           console.log(error);
         }
@@ -64,14 +64,15 @@ const CreatePost = () => {
 
 
     const SubmitOrder = async (currentUser) => {
-        setSubmit(false)
         if (caption === '' ) {
             alert('Enter Caption');
             // setVisible(true); // Assuming setVisible is defined elsewhere in the actual code
             return;
         }
+        setSubmit(false)
         const uid = uuid.v4()
         await setDoc( doc ( db, "posts", uid), {
+            id:uid,
             caption: caption,
             category: "POST",
             createdAt: Date.now(),

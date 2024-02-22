@@ -1,9 +1,10 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Share } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Share, ActivityIndicator } from 'react-native';
 import listingsData from '@/assets/data/demo-listings.json';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Animated, {
   SlideInDown,
   interpolate,
@@ -11,28 +12,53 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset,
 } from 'react-native-reanimated';
+import { app, auth , firestore } from '../../firebase/firebase';
+import { getFirestore, doc, getDoc,setDoc, updateDoc } from "firebase/firestore";
 import { defaultStyles } from '@/constants/Styles';
-
+import { useState, useEffect } from 'react';
+const windowHeight = Dimensions.get('window').height;
 const { width } = Dimensions.get('window');
 const IMG_HEIGHT = 300;
 
 const DetailsPage = () => {
   const { id } = useLocalSearchParams();
-  const listing = (listingsData as any[]).find((item) => item.id === id);
+  const [posts, setPosts] = useState(null);
+  const [listing, setlisting] = useState(null)
+
+  React.useEffect(() => {
+    async function getUser() {
+        try {
+            const db = getFirestore(app);
+            const docRef = doc(db, "posts", id);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                setlisting(docSnap.data());
+            } else {
+                
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    getUser();
+  },[]);
+  
+  //const listing = (posts as any[]).find((item) => item.id === id);
   const navigation = useNavigation();
-  const scrollRef = useAnimatedRef<Animated.ScrollView>();
+  const scrollRef = useAnimatedRef();
 
   const shareListing = async () => {
     try {
       await Share.share({
-        title: listing.name,
-        url: listing.listing_url,
+        title:listing.username,
+        url: listing.imageURL,
       });
     } catch (err) {
       console.log(err);
     }
   };
 
+  
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: '',
@@ -57,7 +83,7 @@ const DetailsPage = () => {
         </TouchableOpacity>
       ),
     });
-  }, []);
+  }, [listing]);
 
   const scrollOffset = useScrollViewOffset(scrollRef);
 
@@ -86,12 +112,13 @@ const DetailsPage = () => {
 
   return (
     <View style={styles.container}>
+      {listing?
       <Animated.ScrollView
         contentContainerStyle={{ paddingBottom: 100 }}
         ref={scrollRef}
         scrollEventThrottle={16}>
         <Animated.Image
-          source={{ uri: listing.photo_url }}
+          source={{ uri: listing.imageURL }}
           style={[styles.image, imageAnimatedStyle]}
           resizeMode="cover"
         />
@@ -119,11 +146,11 @@ const DetailsPage = () => {
           <View style={styles.divider} />
 
           <View style={styles.userView}>
-            <Image source={{ uri: listing.user_picture_url }} style={styles.user} />
+            <Image source={{ uri: listing.userImage }} style={styles.user} />
 
             <View>
-              <Text style={{ fontWeight: '500', fontSize: 16 }}>Posted by {listing.user_name}</Text>
-              <Text>Member since {listing.user_since}</Text>
+              <Text style={{ fontWeight: '500', fontSize: 16 }}>Posted by {listing.userName}</Text>
+              <Text>Member since {Date(listing.userAge)}</Text>
             </View>
           </View>
 
@@ -132,6 +159,7 @@ const DetailsPage = () => {
           <Text style={styles.description}>{listing.description}</Text>
         </View>
       </Animated.ScrollView>
+      :<ActivityIndicator style={{marginVertical:windowHeight/2}} />}
     </View>
   );
 };
