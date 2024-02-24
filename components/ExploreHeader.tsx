@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { Link } from 'expo-router';
+import { app, auth,firestore } from '../firebase/firebase';
 
 
 const categories = [
@@ -78,7 +79,7 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
           </Link>
           }
           <Text style={styles.logo}>Seahorse</Text>
-          {(user)&& 
+          {(auth)&& 
           <Link href={`/add/page`} asChild>
             <TouchableOpacity style={styles.filterBtn1}>
               <Ionicons size={30} name="add-outline"/> 

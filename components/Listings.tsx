@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ListRenderItem, TouchableOpacity , FlatList } from 'react-native';
+import { View, Text, StyleSheet, ListRenderItem, TouchableOpacity , FlatList , RefreshControl} from 'react-native';
 import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
@@ -10,11 +10,15 @@ interface Props {
   listings: any[];
   refresh: number;
   category: string;
+  refreshing: boolean;
+  onRefresh : any
 }
 
-const Listings = ({ listings: items, refresh, category }: Props) => {
+const Listings = ({ listings: items, refresh, category,refreshing, onRefresh }: Props) => {
   const listRef = useRef(null);
   const [loading, setLoading] = useState<boolean>(false);
+  
+
 
   // Update the view to scroll the list back top
   // useEffect(() => {
@@ -41,7 +45,7 @@ const Listings = ({ listings: items, refresh, category }: Props) => {
     <Link href={`/listing/${item.id}`} asChild>
       <TouchableOpacity>
         <Animated.View style={styles.listing} entering={FadeInRight} exiting={FadeOutLeft}>
-          <Animated.Image source={{ uri: item.photo_url }} style={styles.image} />
+          {item.imageURL!="" && <Animated.Image source={{ uri: item.imageURL }} style={styles.image} />}
           <TouchableOpacity style={{ position: 'absolute', right: 30, top: 30 }}>
             {/* <Ionicons name="heart-outline" size={24} color="#000" /> */}
           </TouchableOpacity>
@@ -59,7 +63,7 @@ const Listings = ({ listings: items, refresh, category }: Props) => {
             </View>
           </View>
           <View  style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={{ fontFamily: 'mon' }}>{item.type}</Text>
+          <Text style={{ fontFamily: 'mon' }}>{item.category}</Text>
 
           </View>
           
@@ -76,6 +80,9 @@ const Listings = ({ listings: items, refresh, category }: Props) => {
   return (
     <View style={defaultStyles.container}>
       <FlatList
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         renderItem={renderRow}
         data={loading ? [] : items}
         ref={listRef}
