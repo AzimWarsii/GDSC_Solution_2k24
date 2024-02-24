@@ -117,12 +117,15 @@ const DetailsPage = () => {
         contentContainerStyle={{ paddingBottom: 100 }}
         ref={scrollRef}
         scrollEventThrottle={16}>
+          {listing.imageURL!="" ?
         <Animated.Image
           source={{ uri: listing.imageURL }}
           style={[styles.image, imageAnimatedStyle]}
           resizeMode="cover"
         />
-
+        :
+        <View style={{marginTop:100}}></View>
+      }
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{listing.caption}</Text>
           <Text style={styles.location}>
