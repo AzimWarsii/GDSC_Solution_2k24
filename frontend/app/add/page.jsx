@@ -109,7 +109,7 @@ const CreatePost = () => {
             <Text style={{ fontSize: 18, justifyContent: 'center', alignItems: 'center' }}>Create a Post</Text>
             <TextInput   multiline={true} numberOfLines={1} value={caption} maxLength={30} onChangeText={setCaption} placeholder='Caption' style={styles.input}></TextInput>
             <TextInput  multiline={true} numberOfLines={4} maxLength={70} value={description} onChangeText={setDescription} placeholder='Description' style={styles.inputDes}></TextInput>
-            <TextInput   value={location}  multiline={true} numberOfLines={1} onChangeText={setLocation} maxLength={30} placeholder='Location' style={styles.input}></TextInput>
+            <TextInput   value={location}  multiline={true} numberOfLines={1} maxLength={30}  onChangeText={setLocation}  placeholder='Location' style={styles.input}></TextInput>
             
            
             {imageURL!=""?

@@ -8,7 +8,7 @@ import Colors from '@/constants/Colors';
 import ModalHeaderText from '@/components/ModalHeaderText';
 import { TouchableOpacity } from 'react-native';
 
-const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY||null;
 // Cache the Clerk JWT
 const tokenCache = {
   async getToken(key: string) {

@@ -129,10 +129,10 @@ const CreatePost = () => {
 
         <View style={styles.container}>
             <Text style={{ fontSize: 18, justifyContent: 'center', alignItems: 'center' }}>Create a Drive</Text>
-            <TextInput value={caption} onChangeText={setCaption} placeholder='Title' style={styles.input}></TextInput>
-            <TextInput value={description} onChangeText={setDescription} placeholder='Description' style={styles.inputDes}></TextInput>
-            <TextInput value={location} onChangeText={setLocation} placeholder='Location' style={styles.input}></TextInput>
-            <TextInput value={date} onChangeText={setDate} placeholder='Date' style={styles.input}></TextInput>
+            <TextInput multiline={true} numberOfLines={1} maxLength={20} value={caption} onChangeText={setCaption} placeholder='Title' style={styles.input}></TextInput>
+            <TextInput multiline={true} numberOfLines={1} maxLength={70} value={description} onChangeText={setDescription} placeholder='Description' style={styles.inputDes}></TextInput>
+            <TextInput multiline={true} numberOfLines={1} maxLength={30} value={location} onChangeText={setLocation} placeholder='Location' style={styles.input}></TextInput>
+            <TextInput multiline={true} numberOfLines={1} maxLength={20} value={date} onChangeText={setDate} placeholder='Date' style={styles.input}></TextInput>
             
            
             {imageURL!=""?
