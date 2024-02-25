@@ -10,6 +10,13 @@ import { app, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword }
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const windowHeight = Dimensions.get('window').height;
+import { useWarmUpBrowser } from '@/hooks/useWarmUpBrowser';
+const Strategy = {
+  Google :'oauth_google',
+  Apple : 'oauth_apple',
+  Facebook : 'oauth_facebook',
+} 
+
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,7 +27,34 @@ const LoginScreen = () => {
   const [data, setData] = useState(null);
   const [profile, setProfile]= useState(false);
   const [profileLoaded, setProfileLoaded] = useState(true)
+
   const router = useRouter();
+  useWarmUpBrowser();
+  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: 'oauth_google' });
+  const { startOAuthFlow: appleAuth } = useOAuth({ strategy: 'oauth_apple' });
+  const { startOAuthFlow: facebookAuth } = useOAuth({ strategy: 'oauth_facebook' });
+
+
+  const onSelectAuth = async strategy => {
+    const selectedAuth = {
+      [Strategy.Google]: googleAuth,
+      [Strategy.Apple]: appleAuth,
+      [Strategy.Facebook]: facebookAuth
+    }[strategy]
+  
+    try {
+      const { createdSessionId, setActive } = await selectedAuth()
+  
+      if (createdSessionId) {
+        setActive({ session: createdSessionId })
+        router.back()
+      }
+    } catch (err) {
+      console.error("OAuth error", err)
+    }
+  }
+  
+
   useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
           if (user) {

@@ -22,6 +22,7 @@ import {
   
   const Page = () => {
     const router = useRouter();
+    const { signOut, isSignedIn } = useAuth();
     const [profileLoaded, setProfileLoaded] = useState(true)
     const [data, setData] = React.useState();
     const [newUserName, setNewUserName] = useState(null)
@@ -68,7 +69,8 @@ import {
       try {
         const savedUser = await AsyncStorage.clear();
         setData(null)
-        } catch (error) {
+      }
+      catch (error) {
         console.log(error);
       }
 
@@ -79,6 +81,7 @@ import {
                 router.replace("/(modals)/login")
             })
             .catch(error => alert(error.message))
+      signOut()
       
     }
 
